@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Data/Blueprints.xml</file>
+    </qresource>
+</RCC>

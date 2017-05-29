@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Blueprints>
+  <Poison>
+    <ComDmgOverTime ammount="2" time="4"/>
+  </Poison>
+  <Player>
+    <ComHealth current="20" total="30"/>
+  </Player>
+  <PlayerPoisoned>
+    <Blueprints name="Player"/>
+    <Blueprints name="Poison"/>
+  </PlayerPoisoned>
+</Blueprints>
