@@ -4,6 +4,8 @@
 #include "EntityFactory.h"
 #include "Event/EventMgr.h"
 
+#include "Tests/tests.h"
+
 int main(int argc, char *argv[])
 {
   UNUSED(argc)
@@ -12,15 +14,7 @@ int main(int argc, char *argv[])
   SystemMgr sysMgr;
   EntityFactory factory(&sysMgr);
 
-  const EntityId player = factory.create(std::string("PlayerPoisoned"));
-
-  dbgEntity(player);
-
-  print(sysMgr.health().dbgList());
-
-  sysMgr.apply(5);
-
-  print(sysMgr.health().dbgList());
+  doTests(sysMgr, factory);
 
   return 0;
 }

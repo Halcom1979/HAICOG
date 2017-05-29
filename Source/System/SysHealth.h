@@ -20,13 +20,15 @@ class SysHealth : public SystemBase
   public:
     SysHealth();
 
+    void clear();
+
+    std::string dbgList() const;
+
     void apply(uint32_t deltaTime);
 
     void addComponent(EntityId id, const ComHealth & c);
     void addComponent(EntityId id, const ComHealing & c);
     void addComponent(EntityId id, const ComDmgOverTime & c);
-
-    std::string dbgList() const;
 
     void health(EntityId id, uint32_t & current, uint32_t & total);
 

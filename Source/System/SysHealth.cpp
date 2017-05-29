@@ -10,6 +10,13 @@ SysHealth::SysHealth()
 
 }
 
+void SysHealth::clear()
+{
+  mComHealthList.clear();
+  mComHealingList.clear();
+  mComDmgOverTimeList.clear();
+}
+
 void SysHealth::apply(uint32_t deltaTime)
 {
   for(uint32_t i = 0; i < deltaTime; ++i) {
@@ -59,9 +66,9 @@ void SysHealth::addComponent(EntityId id, const ComHealing & c)
 std::string SysHealth::dbgList() const
 {
   std::stringstream r;
-  r << listToString<ComHealthList>("SysHealth", mComHealthList);
-  r << listToString<ComHealingList>("SysHealth", mComHealingList);
-  r << listToString<ComDmgOverTimeList>("SysHealth", mComDmgOverTimeList);
+  r << entityListToString<ComHealthList>("SysHealth", mComHealthList);
+  r << entityListToString<ComHealingList>("SysHealth", mComHealingList);
+  r << entityListToString<ComDmgOverTimeList>("SysHealth", mComDmgOverTimeList);
   return r.str();
 }
 

@@ -87,6 +87,9 @@ void EntityFactory::addBlueprintToId(EntityId id, const std::string & blueprint)
     ATTR_INT(time, 0)
   END_COMP(ComDmgOverTime, mSystemMgr->health())
 
+  START_COMP(ComInventory)
+  END_COMP(ComInventory, mSystemMgr->inventory())
+
   QDomElement childBP = bp.firstChildElement("Blueprints");
   while(!childBP.isNull()) {
     const QString name = childBP.attribute("name");

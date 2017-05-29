@@ -17,7 +17,8 @@ SOURCES += \
     Source/main.cpp \
     Source/System/SystemMgr.cpp \
     Source/System/SysHealth.cpp \
-    Source/System/SystemBase.cpp
+    Source/System/SystemBase.cpp \
+    Source/System/SysInventory.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -42,9 +43,14 @@ HEADERS += \
     Source/System/SystemIF.h \
     Source/Macros.h \
     Source/Component/ComHealing.h \
-    Source/Component/ComDmgOverTime.h
+    Source/Component/ComDmgOverTime.h \
+    Source/Tests/tests.h \
+    Source/System/SysInventory.h \
+    Source/Component/ComInventory.h
 
 RESOURCES +=
 
 DISTFILES += \
     Bin/Data/Blueprints.xml
+
+INCLUDEPATH += ./Source

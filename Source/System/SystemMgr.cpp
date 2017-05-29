@@ -8,6 +8,12 @@ SystemMgr::SystemMgr()
 
 }
 
+void SystemMgr::clearSystems()
+{
+  health().clear();
+  inventory().clear();
+}
+
 void SystemMgr::apply(uint32_t deltaTime)
 {
   std::stringstream r;
@@ -15,9 +21,15 @@ void SystemMgr::apply(uint32_t deltaTime)
   print(r.str());
 
   mHealth.apply(deltaTime);
+  mInventory.apply(deltaTime);
 }
 
 SysHealth & SystemMgr::health()
 {
   return mHealth;
+}
+
+SysInventory &SystemMgr::inventory()
+{
+  return mInventory;
 }

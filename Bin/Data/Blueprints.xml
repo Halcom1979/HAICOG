@@ -5,6 +5,7 @@
   </Poison>
   <Player>
     <ComHealth current="20" total="30"/>
+    <ComInventory />
   </Player>
   <PlayerPoisoned>
     <Blueprints name="Player"/>

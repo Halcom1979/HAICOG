@@ -9,9 +9,11 @@
 class SystemIF
 {
   public:
-    virtual void apply(uint32_t deltaTime) = 0;
+    virtual void clear() = 0;
 
     virtual std::string dbgList() const = 0;
+
+    virtual void apply(uint32_t deltaTime) = 0;
 };
 
 typedef std::list<SystemIF*> SystemIFList;
