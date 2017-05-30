@@ -57,7 +57,7 @@ EntityFactory::EntityFactory(SystemMgr * sysMgr)
 
 EntityId EntityFactory::create(const std::string & blueprint)
 {
-  const EntityId id = uniqueId();
+  const EntityId id = createEmptyEntity();
 
   addBlueprintToId(id, blueprint);
 
@@ -103,7 +103,7 @@ void EntityFactory::addBlueprintToId(EntityId id, const std::string & blueprint)
   }
 }
 
-EntityId EntityFactory::uniqueId()
+EntityId EntityFactory::createEmptyEntity()
 {
   return ++mNextId;
 }

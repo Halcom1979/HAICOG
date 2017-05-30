@@ -14,6 +14,8 @@ class EntityFactory
   public:
     EntityFactory(SystemMgr * sysMgr);
 
+    EntityId createEmptyEntity();
+
     EntityId create(const std::string & blueprint);
 
     void addBlueprintToId(EntityId id, const std::string & blueprint);
@@ -25,8 +27,6 @@ class EntityFactory
     EntityId      mNextId = 0;
     QDomDocument  mXMLDocument;
     QDomElement   mBlueprints;
-
-    EntityId uniqueId();
 
     QDomElement findBlueprint(const std::string & name);
 };

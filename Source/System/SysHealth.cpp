@@ -17,6 +17,40 @@ void SysHealth::clear()
   mComDmgOverTimeList.clear();
 }
 
+std::string SysHealth::dbgEntity(EntityId id) const
+{
+  std::string s;
+  std::stringstream r;
+  bool linebreak = false;;
+
+  s = fromEntityListToString(id, mComHealthList);
+  if(!s.empty()) {
+    r << s;
+    linebreak = true;
+  }
+
+  s = fromEntityListToString(id, mComHealingList);
+  if(!s.empty()) {
+    if(linebreak) {
+      r << std::endl;
+    }
+
+    r << s;
+    linebreak = true;
+  }
+
+  s = fromEntityListToString(id, mComDmgOverTimeList);
+  if(!s.empty()) {
+    if(linebreak) {
+      r << std::endl;
+    }
+
+    r << s;
+  }
+
+  return r.str();
+}
+
 void SysHealth::apply(uint32_t deltaTime)
 {
   for(uint32_t i = 0; i < deltaTime; ++i) {
@@ -50,6 +84,11 @@ void SysHealth::addComponent(EntityId id, const ComDmgOverTime & c)
   } else {
     mComDmgOverTimeList.push_back(std::make_pair(id,c));
   }
+}
+
+void SysHealth::removeEntity(EntityId id)
+{
+
 }
 
 void SysHealth::addComponent(EntityId id, const ComHealing & c)

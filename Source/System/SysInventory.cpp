@@ -12,6 +12,11 @@ void SysInventory::clear()
   mInventories.clear();
 }
 
+std::string SysInventory::dbgEntity(EntityId id) const
+{
+  return fromEntityMapToString(id, mInventories);
+}
+
 std::string SysInventory::dbgList() const
 {
   std::stringstream r;
@@ -22,6 +27,11 @@ std::string SysInventory::dbgList() const
 void SysInventory::apply(uint32_t deltaTime)
 {
   UNUSED(deltaTime);
+}
+
+void SysInventory::removeEntity(EntityId id)
+{
+
 }
 
 void SysInventory::addComponent(EntityId id, const ComInventory & c)

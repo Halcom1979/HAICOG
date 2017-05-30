@@ -22,6 +22,8 @@ class SysHealth : public SystemBase
 
     void clear();
 
+    std::string dbgEntity(EntityId id) const;
+
     std::string dbgList() const;
 
     void apply(uint32_t deltaTime);
@@ -29,6 +31,8 @@ class SysHealth : public SystemBase
     void addComponent(EntityId id, const ComHealth & c);
     void addComponent(EntityId id, const ComHealing & c);
     void addComponent(EntityId id, const ComDmgOverTime & c);
+
+    void removeEntity(EntityId id);
 
     void health(EntityId id, uint32_t & current, uint32_t & total);
 

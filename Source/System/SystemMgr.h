@@ -11,6 +11,8 @@ class SystemMgr
   public:
     SystemMgr();
 
+    void dbgEntity(EntityId id) const;
+
     void clearSystems();
 
     void apply(uint32_t deltaTime);
@@ -19,8 +21,10 @@ class SystemMgr
     SysInventory &      inventory();
 
   private:
-    SysHealth           mHealth;
-    SysInventory        mInventory;
+    SysHealth             mHealth;
+    SysInventory          mInventory;
+
+    std::list<SystemIF*>  mSystems;
 };
 
 #endif // SYSTEMMGR_H

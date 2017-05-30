@@ -16,8 +16,8 @@ static void dbg_assert(bool x) {
   #endif
 }
 
-static void dbgEntity(EntityId player) {
-  UNUSED(player);
+static void print(const char * msg) {
+  std::cout << msg << std::endl;
 }
 
 static void print(const std::string & msg) {
@@ -63,6 +63,17 @@ static std::string entityListToString(const char * name, const T & list) {
 }
 
 template<typename T>
+static std::string fromEntityListToString(EntityId id, const T & list) {
+  for(auto e : list) {
+    if(e.first == id) {
+      return toString(e.second);
+    }
+  }
+
+  return std::string();
+}
+
+template<typename T>
 static std::string entityMapToString(const char * name, const T & map)
 {
   if(map.size() == 0) {
@@ -83,6 +94,17 @@ static std::string entityMapToString(const char * name, const T & map)
   }
 
   return res.str();
+}
+
+template<typename T>
+static std::string fromEntityMapToString(EntityId id, const T & map) {
+  for(auto e : map) {
+    if(e.first == id) {
+      return toString(e.second);
+    }
+  }
+
+  return std::string();
 }
 
 #endif // DEBUG_H

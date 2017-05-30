@@ -46,7 +46,10 @@ HEADERS += \
     Source/Component/ComDmgOverTime.h \
     Source/Tests/tests.h \
     Source/System/SysInventory.h \
-    Source/Component/ComInventory.h
+    Source/Component/ComInventory.h \
+    Source/Tests/test_inventory.h \
+    Source/Tests/test_health.h \
+    Source/Tests/test_dbgEntity.h
 
 RESOURCES +=
 

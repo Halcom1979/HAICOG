@@ -34,19 +34,26 @@ static std::string toString(InventoryEntry e) {
 typedef std::list<InventoryEntry> InventoryEntries;
 
 static std::string toString(const InventoryEntries & e) {
-  return listToString<InventoryEntries>(e);
+  std::ostringstream res;
+  res << "Inventory: " << listToString<InventoryEntries>(e);
+
+  return res.str();
 }
 
-class SysInventory
+class SysInventory : public SystemIF
 {
   public:
     SysInventory();
 
     void clear();
 
+    std::string dbgEntity(EntityId id) const;
+
     std::string dbgList() const;
 
     void apply(uint32_t deltaTime);
+
+    void removeEntity(EntityId id);
 
     void addComponent(EntityId id, const ComInventory & c);
 
