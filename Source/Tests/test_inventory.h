@@ -1,13 +1,12 @@
 #ifndef TEST_INVENTORY_H
 #define TEST_INVENTORY_H
 
-#include "System/SystemMgr.h"
-#include "EntityFactory.h"
+#include "test_global.h"
 
 bool test_inventory(SystemMgr & sysMgr, EntityFactory & factory) {
-  ComInventory comInv;
-
   const EntityId inv = factory.createEmptyEntity();
+
+  ComInventory comInv;
   sysMgr.inventory().addComponent(inv, comInv);
 
   for(int i = 0; i < 7; ++i) {

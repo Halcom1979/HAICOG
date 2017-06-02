@@ -77,10 +77,10 @@ void EntityFactory::addBlueprintToId(EntityId id, const std::string & blueprint)
     ATTR_INT(total, 0)
   END_COMP(ComHealth, mSystemMgr->health())
 
-  START_COMP(ComHealing)
+  START_COMP(ComHealingOverTime)
     ATTR_INT(ammount, 0)
     ATTR_INT(time, 0)
-  END_COMP(ComHealing, mSystemMgr->health())
+  END_COMP(ComHealingOverTime, mSystemMgr->health())
 
   START_COMP(ComDmgOverTime)
     ATTR_INT(ammount, 0)

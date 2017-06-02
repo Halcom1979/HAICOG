@@ -13,9 +13,7 @@
 #define DO_TEST(method) \
 {\
   sysMgr.clearSystems();\
-  print("************************************************");\
   print(#method);\
-  print("************************************************");\
   const bool result = method(sysMgr, factory);\
   if(!result) {\
     print("FAILED!!!");\
@@ -25,8 +23,8 @@
 
 void doTests(SystemMgr & sysMgr, EntityFactory & factory)
 {
-  //DO_TEST(test_health);
-  DO_TEST(test_inventory);
+  DO_TEST(test_health);
+  //DO_TEST(test_inventory);
   //DO_TEST(test_dbgEntity);
 }
 

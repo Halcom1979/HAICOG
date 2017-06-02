@@ -42,14 +42,15 @@ HEADERS += \
     Source/System/SystemBase.h \
     Source/System/SystemIF.h \
     Source/Macros.h \
-    Source/Component/ComHealing.h \
     Source/Component/ComDmgOverTime.h \
     Source/Tests/tests.h \
     Source/System/SysInventory.h \
     Source/Component/ComInventory.h \
     Source/Tests/test_inventory.h \
     Source/Tests/test_health.h \
-    Source/Tests/test_dbgEntity.h
+    Source/Tests/test_dbgEntity.h \
+    Source/Tests/test_global.h \
+    Source/Component/ComHealingOverTime.h
 
 RESOURCES +=
 

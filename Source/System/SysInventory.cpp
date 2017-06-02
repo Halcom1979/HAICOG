@@ -24,9 +24,9 @@ std::string SysInventory::dbgList() const
   return r.str();
 }
 
-void SysInventory::apply(uint32_t deltaTime)
+void SysInventory::executeTurn()
 {
-  UNUSED(deltaTime);
+
 }
 
 void SysInventory::removeEntity(EntityId id)

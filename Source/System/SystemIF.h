@@ -15,7 +15,7 @@ class SystemIF
 
     virtual std::string dbgList() const = 0;
 
-    virtual void apply(uint32_t deltaTime) = 0;
+    virtual void executeTurn() = 0;
 
     virtual void removeEntity(EntityId id) = 0;
 };

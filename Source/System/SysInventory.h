@@ -51,7 +51,7 @@ class SysInventory : public SystemIF
 
     std::string dbgList() const;
 
-    void apply(uint32_t deltaTime);
+    void executeTurn();
 
     void removeEntity(EntityId id);
 

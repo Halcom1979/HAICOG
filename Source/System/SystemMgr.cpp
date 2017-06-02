@@ -29,14 +29,12 @@ void SystemMgr::clearSystems()
   }
 }
 
-void SystemMgr::apply(uint32_t deltaTime)
+void SystemMgr::executeTurn(uint32_t deltaTime)
 {
-  std::stringstream r;
-  r << "SystemMgr::apply(" << std::to_string(deltaTime) << ")" << std::endl;
-  print(r.str());
-
-  for(auto e : mSystems) {
-    e->apply(deltaTime);
+  for(uint32_t i = 0; i < deltaTime; ++i) {
+    for(auto e : mSystems) {
+      e->executeTurn();
+    }
   }
 }
 

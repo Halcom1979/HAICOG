@@ -5,26 +5,26 @@
 #include <string>
 #include <sstream>
 
-struct ComHealing
+struct ComHealingOverTime
 {
   uint16_t ammount;
   uint16_t time;
 
-  ComHealing()
-  : ComHealing(0,0)
+  ComHealingOverTime()
+  : ComHealingOverTime(0,0)
   {}
 
-  ComHealing(uint16_t v)
-  : ComHealing(v,0)
+  ComHealingOverTime(uint16_t v)
+  : ComHealingOverTime(v,0)
   {}
 
-  ComHealing(uint16_t v, uint16_t t)
+  ComHealingOverTime(uint16_t v, uint16_t t)
   : ammount(v)
   , time(t)
   {}
 };
 
-static std::string toString(const ComHealing & com) {
+static std::string toString(const ComHealingOverTime & com) {
   std::ostringstream res;
 
   res << "ComHealing: {";

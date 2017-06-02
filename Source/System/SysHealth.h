@@ -5,14 +5,14 @@
 
 #include "../Entity.h"
 #include "../Component/ComHealth.h"
-#include "../Component/ComHealing.h"
+#include "../Component/ComHealingOverTime.h"
 #include "../Component/ComDmgOverTime.h"
 
 #include <map>
 #include <list>
 
 typedef std::map<EntityId, ComHealth> ComHealthList;
-typedef std::list<std::pair<EntityId, ComHealing> > ComHealingList;
+typedef std::list<std::pair<EntityId, ComHealingOverTime> > ComHealingList;
 typedef std::list<std::pair<EntityId, ComDmgOverTime> > ComDmgOverTimeList;
 
 class SysHealth : public SystemBase
@@ -26,10 +26,10 @@ class SysHealth : public SystemBase
 
     std::string dbgList() const;
 
-    void apply(uint32_t deltaTime);
+    void executeTurn();
 
     void addComponent(EntityId id, const ComHealth & c);
-    void addComponent(EntityId id, const ComHealing & c);
+    void addComponent(EntityId id, const ComHealingOverTime & c);
     void addComponent(EntityId id, const ComDmgOverTime & c);
 
     void removeEntity(EntityId id);

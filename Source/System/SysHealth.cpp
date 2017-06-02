@@ -51,23 +51,10 @@ std::string SysHealth::dbgEntity(EntityId id) const
   return r.str();
 }
 
-void SysHealth::apply(uint32_t deltaTime)
+void SysHealth::executeTurn()
 {
-  for(uint32_t i = 0; i < deltaTime; ++i) {
-    for(auto e : mComHealingList) {
-      const EntityId id = e.first;
-      uint16_t inc = e.second.ammount;
-
-      ComHealthList::iterator iter = mComHealthList.find(id);
-      dbg_assert(iter != mComHealthList.end());
-
-      if(iter->second.current > inc) {
-        iter->second.current -= inc;
-      } else {
-        print("Dead");
-      }
-    }
-  }
+  applyHealing();
+  applyDamageOverTime();
 }
 
 void SysHealth::addComponent(EntityId id, const ComHealth & c)
@@ -91,7 +78,7 @@ void SysHealth::removeEntity(EntityId id)
 
 }
 
-void SysHealth::addComponent(EntityId id, const ComHealing & c)
+void SysHealth::addComponent(EntityId id, const ComHealingOverTime & c)
 {
   dbg_assert(c.ammount != 0);
 
@@ -174,5 +161,15 @@ void SysHealth::modifyHealth(EntityId id, int16_t v)
   ComHealthList::iterator iter = mComHealthList.find(id);
   dbg_assert(iter != mComHealthList.end());
 
-  iter->second.current += v;
+  const uint16_t cur = iter->second.current;
+  const uint16_t tot = iter->second.total;
+  const int calc = cur + v;
+
+  if(calc <= 0) {
+    print("Dead");
+    mComHealthList.erase(iter);
+  } else {
+    const uint16_t newValue = std::min((uint16_t)calc, tot);
+    iter->second.current = newValue;
+  }
 }

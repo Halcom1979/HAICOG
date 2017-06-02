@@ -15,7 +15,7 @@ class SystemMgr
 
     void clearSystems();
 
-    void apply(uint32_t deltaTime);
+    void executeTurn(uint32_t deltaTime);
 
     SysHealth &         health();
     SysInventory &      inventory();
