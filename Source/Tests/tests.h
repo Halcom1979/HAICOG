@@ -9,6 +9,7 @@
 #include "test_health.h"
 #include "test_inventory.h"
 #include "test_dbgEntity.h"
+#include "test_usable.h"
 
 #define DO_TEST(method) \
 {\
@@ -23,9 +24,12 @@
 
 void doTests(SystemMgr & sysMgr, EntityFactory & factory)
 {
-  DO_TEST(test_health);
+  //DO_TEST(test_health);
   //DO_TEST(test_inventory);
   //DO_TEST(test_dbgEntity);
+  DO_TEST(test_usable);
+
+  print("Test finished!!!");
 }
 
 #endif // TESTS_H

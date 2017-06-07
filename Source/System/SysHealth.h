@@ -5,15 +5,10 @@
 
 #include "../Entity.h"
 #include "../Component/ComHealth.h"
-#include "../Component/ComHealingOverTime.h"
-#include "../Component/ComDmgOverTime.h"
+#include "../Component/ComHealthModifierOverTime.h"
 
 #include <map>
 #include <list>
-
-typedef std::map<EntityId, ComHealth> ComHealthList;
-typedef std::list<std::pair<EntityId, ComHealingOverTime> > ComHealingList;
-typedef std::list<std::pair<EntityId, ComDmgOverTime> > ComDmgOverTimeList;
 
 class SysHealth : public SystemBase
 {
@@ -29,26 +24,22 @@ class SysHealth : public SystemBase
     void executeTurn();
 
     void addComponent(EntityId id, const ComHealth & c);
-    void addComponent(EntityId id, const ComHealingOverTime & c);
-    void addComponent(EntityId id, const ComDmgOverTime & c);
+    void addComponent(EntityId id, const ComHealthModifierOverTime & c);
 
     void removeEntity(EntityId id);
 
     void health(EntityId id, uint32_t & current, uint32_t & total);
 
-    void healing(EntityId id, uint32_t & inc);
-
-    void dmgOverTime(EntityId id, uint32_t & inc);
-
   private:
-    ComHealthList       mComHealthList;
-    ComHealingList      mComHealingList;
-    ComDmgOverTimeList  mComDmgOverTimeList;
+    typedef std::map<EntityId, ComHealth> ComHealthList;
+    ComHealthList           mComHealthList;
 
-    void applyDamageOverTime();
-    void applyHealing();
+    typedef std::list<std::pair<EntityId, ComHealthModifierOverTime> > ComModifierOverTimeList;
+    ComModifierOverTimeList mComHealthModOverTimeList;
 
     void modifyHealth(EntityId id, int16_t v);
+
+    void modifier(EntityId id, int32_t & inc);
 };
 
 #endif // SYSHEALTH_H

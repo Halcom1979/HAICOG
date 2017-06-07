@@ -2,7 +2,6 @@
 
 #include "System/SystemMgr.h"
 #include "EntityFactory.h"
-#include "Event/EventMgr.h"
 
 #include "Tests/tests.h"
 
@@ -12,9 +11,12 @@ int main(int argc, char *argv[])
   UNUSED(argv)
 
   SystemMgr sysMgr;
-  EntityFactory factory(&sysMgr);
+  EntityFactory entityFactory;
 
-  doTests(sysMgr, factory);
+  sysMgr.init(&entityFactory);
+  entityFactory.init(&sysMgr);
+
+  doTests(sysMgr, entityFactory);
 
   return 0;
 }

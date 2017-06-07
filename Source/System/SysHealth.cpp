@@ -1,6 +1,8 @@
 #include "SysHealth.h"
 
 #include "../Debug.h"
+#include "Helper.h"
+
 #include <sstream>
 #include <algorithm>
 
@@ -13,8 +15,7 @@ SysHealth::SysHealth()
 void SysHealth::clear()
 {
   mComHealthList.clear();
-  mComHealingList.clear();
-  mComDmgOverTimeList.clear();
+  mComHealthModOverTimeList.clear();
 }
 
 std::string SysHealth::dbgEntity(EntityId id) const
@@ -29,7 +30,7 @@ std::string SysHealth::dbgEntity(EntityId id) const
     linebreak = true;
   }
 
-  s = fromEntityListToString(id, mComHealingList);
+  s = fromEntityListToString(id, mComHealthModOverTimeList);
   if(!s.empty()) {
     if(linebreak) {
       r << std::endl;
@@ -39,22 +40,37 @@ std::string SysHealth::dbgEntity(EntityId id) const
     linebreak = true;
   }
 
-  s = fromEntityListToString(id, mComDmgOverTimeList);
-  if(!s.empty()) {
-    if(linebreak) {
-      r << std::endl;
-    }
-
-    r << s;
-  }
-
   return r.str();
 }
 
 void SysHealth::executeTurn()
 {
-  applyHealing();
-  applyDamageOverTime();
+  std::map<EntityId, int32_t> mods;
+
+  {
+    ComModifierOverTimeList::iterator iter = mComHealthModOverTimeList.begin();
+    while(iter != mComHealthModOverTimeList.end()) {
+      const EntityId id = iter->first;
+      const int16_t amount = iter->second.amount;
+
+      mods[id] += amount;
+
+      if(iter->second.time > 1) {
+        iter->second.time -= 1;
+        ++iter;
+      } else {
+        iter = mComHealthModOverTimeList.erase(iter);
+      }
+    }
+  }
+
+  {
+    std::map<EntityId, int32_t>::const_iterator iter = mods.begin();
+    while(iter != mods.end()) {
+      modifyHealth(iter->first, iter->second);
+      ++iter;
+    }
+  }
 }
 
 void SysHealth::addComponent(EntityId id, const ComHealth & c)
@@ -62,39 +78,33 @@ void SysHealth::addComponent(EntityId id, const ComHealth & c)
   mComHealthList[id] = c;
 }
 
-void SysHealth::addComponent(EntityId id, const ComDmgOverTime & c)
+void SysHealth::addComponent(EntityId id, const ComHealthModifierOverTime & c)
 {
-  dbg_assert(c.ammount != 0);
+  dbg_assert(c.amount != 0);
 
   if(c.time == 0) {
-    modifyHealth(id, -c.ammount);
+    modifyHealth(id, c.amount);
   } else {
-    mComDmgOverTimeList.push_back(std::make_pair(id,c));
+    mComHealthModOverTimeList.push_back(std::make_pair(id,c));
   }
 }
 
 void SysHealth::removeEntity(EntityId id)
 {
-
-}
-
-void SysHealth::addComponent(EntityId id, const ComHealingOverTime & c)
-{
-  dbg_assert(c.ammount != 0);
-
-  if(c.time == 0) {
-    modifyHealth(id, c.ammount);
-  } else {
-    mComHealingList.push_back(std::make_pair(id,c));
-  }
+  removeFromEntityList(id, mComHealthList);
+  removeFromEntityList(id, mComHealthModOverTimeList);
 }
 
 std::string SysHealth::dbgList() const
 {
   std::stringstream r;
-  r << entityListToString<ComHealthList>("SysHealth", mComHealthList);
-  r << entityListToString<ComHealingList>("SysHealth", mComHealingList);
-  r << entityListToString<ComDmgOverTimeList>("SysHealth", mComDmgOverTimeList);
+
+  r << entityListToString<ComHealthList>("SysHealth",
+                                         mComHealthList);
+
+  r << entityListToString<ComModifierOverTimeList>("SysHealth",
+                                                   mComHealthModOverTimeList);
+
   return r.str();
 }
 
@@ -110,49 +120,13 @@ void SysHealth::health(EntityId id, uint32_t & current, uint32_t & total)
   }
 }
 
-void SysHealth::healing(EntityId id, uint32_t & inc)
+void SysHealth::modifier(EntityId id, int32_t & inc)
 {
   inc = 0;
-  for(auto e : mComHealingList) {
+  for(auto e : mComHealthModOverTimeList) {
     if(e.first == id) {
-      inc += e.second.ammount;
+      inc += e.second.amount;
     }
-  }
-}
-
-void SysHealth::applyDamageOverTime()
-{
-  ComDmgOverTimeList::iterator iter = mComDmgOverTimeList.begin();
-  while(iter != mComDmgOverTimeList.end()) {
-    const EntityId id = (*iter).first;
-    const uint16_t ammount = (*iter).second.ammount;
-
-    if(iter->second.time > 1) {
-      iter->second.time -= 1;
-      ++iter;
-    } else {
-      iter = mComDmgOverTimeList.erase(iter);
-    }
-
-    modifyHealth(id, -ammount);
-  }
-}
-
-void SysHealth::applyHealing()
-{
-  ComHealingList::iterator iter = mComHealingList.begin();
-  while(iter != mComHealingList.end()) {
-    const EntityId id = (*iter).first;
-    const uint16_t ammount = (*iter).second.ammount;
-
-    if(iter->second.time > 1) {
-      iter->second.time -= 1;
-      ++iter;
-    } else {
-      iter = mComHealingList.erase(iter);
-    }
-
-    modifyHealth(id, ammount);
   }
 }
 

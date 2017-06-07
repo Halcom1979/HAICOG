@@ -64,13 +64,21 @@ static std::string entityListToString(const char * name, const T & list) {
 
 template<typename T>
 static std::string fromEntityListToString(EntityId id, const T & list) {
+  std::stringstream res;
+
+  bool firstOne = true;
   for(auto e : list) {
     if(e.first == id) {
-      return toString(e.second);
+      if(firstOne) {
+        firstOne = false;
+        res << toString(e.second);
+      } else {
+        res << std::endl << toString(e.second);
+      }
     }
   }
 
-  return std::string();
+  return res.str();
 }
 
 template<typename T>

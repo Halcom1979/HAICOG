@@ -31,7 +31,7 @@ void SysInventory::executeTurn()
 
 void SysInventory::removeEntity(EntityId id)
 {
-
+  mInventories.erase(id);
 }
 
 void SysInventory::addComponent(EntityId id, const ComInventory & c)

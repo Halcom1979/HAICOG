@@ -4,7 +4,7 @@
 #include "System/SystemMgr.h"
 #include "EntityFactory.h"
 
-#define CHECK(res) check(res, __FILE__, __LINE__);
+#define CHECK(res) check(res, __FILE__, __LINE__)
 
 static void check(bool result, const char * file, const int line) {
   if(!result) {

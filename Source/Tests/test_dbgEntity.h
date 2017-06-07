@@ -4,14 +4,12 @@
 #include "System/SystemMgr.h"
 #include "EntityFactory.h"
 
-bool test_dbgEntity(SystemMgr & sysMgr, EntityFactory & factory) {
-  const EntityId player = factory.create(std::string("Player"));
+bool test_dbgEntity(SystemMgr & sysMgr, EntityFactory entityFactory) {
+  const EntityId player = entityFactory.create(std::string("TestPlayer"));
 
   sysMgr.dbgEntity(player);
 
-  factory.addBlueprintToId(player, "Poison");
-
-
+  entityFactory.addBlueprintToId(player, "TestPoison");
 
   sysMgr.dbgEntity(player);
 

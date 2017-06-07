@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Blueprints>
-  <Poison>
-    <ComDmgOverTime ammount="2" time="4"/>
-  </Poison>
-  <Player>
+  <TestPoisonEffect>
+    <ComHealthModifierOverTime amount="2" time="4"/>
+  </TestPoisonEffect>
+  <TestPoison>
+    <ComUsable usages="2" blueprint="TestPoisonEffect"/>
+  </TestPoison>
+  <TestPlayer>
     <ComHealth current="20" total="30"/>
-    <ComInventory />
-  </Player>
-  <PlayerPoisoned>
-    <Blueprints name="Player"/>
-    <Blueprints name="Poison"/>
-  </PlayerPoisoned>
+  </TestPlayer>
+  <TestPlayerPoisoned>
+    <Blueprints name="TestPlayer"/>
+    <Blueprints name="TestPoisonEffect"/>
+  </TestPlayerPoisoned>
 </Blueprints>

@@ -12,12 +12,12 @@
 #include <list>
 
 struct InventoryEntry {
-  uint64_t ammount;
+  uint64_t amount;
   EntityId id;
 
   InventoryEntry(EntityId i, uint64_t a)
   : id(i)
-  , ammount(a)
+  , amount(a)
   {}
 };
 
@@ -25,7 +25,7 @@ static std::string toString(InventoryEntry e) {
   std::ostringstream res;
 
   res << "InventoryEntry: {";
-  res << "ammount: " << std::to_string(e.ammount) << ", " << toString(e.id);
+  res << "amount: " << std::to_string(e.amount) << ", " << toString(e.id);
   res << "}";
 
   return res.str();

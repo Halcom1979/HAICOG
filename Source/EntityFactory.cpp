@@ -17,6 +17,10 @@
   }\
 }
 
+#define ATTR_STR(name, init) \
+  dbg_assert(component.hasAttribute(#name));\
+  c.name = component.attribute(#name, init).toStdString();
+
 #define ATTR_INT(name, init) \
   dbg_assert(component.hasAttribute(#name));\
   c.name = component.attribute(#name, init).toInt();
@@ -29,12 +33,9 @@
   dbg_assert(component.hasAttribute(#name));\
   c.name = component.attribute(#name, init).toFloat();
 
-EntityFactory::EntityFactory(SystemMgr * sysMgr)
-: mSystemMgr(sysMgr)
-, mXMLDocument()
+EntityFactory::EntityFactory()
+: mSystemMgr(nullptr)
 {
-  dbg_assert(mSystemMgr != nullptr);
-
   QFile file("./Data/Blueprints.xml");
   Q_ASSERT(file.open(QIODevice::ReadOnly));
 
@@ -55,6 +56,12 @@ EntityFactory::EntityFactory(SystemMgr * sysMgr)
   file.close();
 }
 
+void EntityFactory::init(SystemMgr * sysMgr)
+{
+  dbg_assert(sysMgr != nullptr);
+  mSystemMgr = sysMgr;
+}
+
 EntityId EntityFactory::create(const std::string & blueprint)
 {
   const EntityId id = createEmptyEntity();
@@ -64,8 +71,11 @@ EntityId EntityFactory::create(const std::string & blueprint)
   return id;
 }
 
-void EntityFactory::addBlueprintToId(EntityId id, const std::string & blueprint)
+void EntityFactory::addBlueprintToId(EntityId id,
+                                     const std::string & blueprint) const
 {
+  dbg_assert(mSystemMgr != nullptr);
+
   QDomElement bp = findBlueprint(blueprint);
 
   if(bp.isNull()) {
@@ -77,18 +87,18 @@ void EntityFactory::addBlueprintToId(EntityId id, const std::string & blueprint)
     ATTR_INT(total, 0)
   END_COMP(ComHealth, mSystemMgr->health())
 
-  START_COMP(ComHealingOverTime)
-    ATTR_INT(ammount, 0)
+  START_COMP(ComHealthModifierOverTime)
+    ATTR_INT(amount, 0)
     ATTR_INT(time, 0)
-  END_COMP(ComHealingOverTime, mSystemMgr->health())
-
-  START_COMP(ComDmgOverTime)
-    ATTR_INT(ammount, 0)
-    ATTR_INT(time, 0)
-  END_COMP(ComDmgOverTime, mSystemMgr->health())
+  END_COMP(ComHealthModifierOverTime, mSystemMgr->health())
 
   START_COMP(ComInventory)
   END_COMP(ComInventory, mSystemMgr->inventory())
+
+  START_COMP(ComUsable)
+    ATTR_INT(usages, 0)
+    ATTR_STR(blueprint, QString())
+  END_COMP(ComUsable, mSystemMgr->usable())
 
   QDomElement childBP = bp.firstChildElement("Blueprints");
   while(!childBP.isNull()) {
@@ -108,7 +118,7 @@ EntityId EntityFactory::createEmptyEntity()
   return ++mNextId;
 }
 
-QDomElement EntityFactory::findBlueprint(const std::string & name)
+QDomElement EntityFactory::findBlueprint(const std::string & name) const
 {
   QDomElement bp = mBlueprints.firstChildElement(QString::fromStdString(name));
 

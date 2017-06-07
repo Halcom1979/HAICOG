@@ -5,19 +5,30 @@
 
 SystemMgr::SystemMgr()
 {
+
+}
+
+void SystemMgr::init(EntityFactory * factory)
+{
+  mUsable.init(factory);
+
   mSystems.push_back(&mHealth);
   mSystems.push_back(&mInventory);
+  mSystems.push_back(&mUsable);
 }
 
 void SystemMgr::dbgEntity(EntityId id) const
 {
   std::stringstream r;
 
-  r << "Entity (" << std::to_string(id) << ") {";
+  r << "Entity (" << std::to_string(id) << ") {" << std::endl;
   for(auto e : mSystems) {
-    r << std::endl << e->dbgEntity(id) ;
+    const std::string dbgstr = e->dbgEntity(id);
+    if(!dbgstr.empty()) {
+      r << dbgstr << std::endl;
+    }
   }
-  r << std::endl << "}" << std::endl;
+  r << "}" << std::endl;
 
   print(r.str());
 }
@@ -46,4 +57,9 @@ SysHealth & SystemMgr::health()
 SysInventory & SystemMgr::inventory()
 {
   return mInventory;
+}
+
+SysUsable & SystemMgr::usable()
+{
+  return mUsable;
 }

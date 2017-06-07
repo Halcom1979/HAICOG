@@ -3,14 +3,14 @@
 
 #include "test_global.h"
 
-bool test_inventory(SystemMgr & sysMgr, EntityFactory & factory) {
-  const EntityId inv = factory.createEmptyEntity();
+bool test_inventory(SystemMgr & sysMgr, EntityFactory entityFactory) {
+  const EntityId inv = entityFactory.createEmptyEntity();
 
   ComInventory comInv;
   sysMgr.inventory().addComponent(inv, comInv);
 
   for(int i = 0; i < 7; ++i) {
-    const EntityId item = factory.createEmptyEntity();
+    const EntityId item = entityFactory.createEmptyEntity();
     sysMgr.inventory().addToInventory(inv, item);
   }
 

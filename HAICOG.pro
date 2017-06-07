@@ -13,12 +13,12 @@ TEMPLATE = app
 
 SOURCES += \
     Source/EntityFactory.cpp \
-    Source/Event/EventMgr.cpp \
     Source/main.cpp \
     Source/System/SystemMgr.cpp \
     Source/System/SysHealth.cpp \
     Source/System/SystemBase.cpp \
-    Source/System/SysInventory.cpp
+    Source/System/SysInventory.cpp \
+    Source/System/SysUsable.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -33,7 +33,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
     Source/Debug.h \
-    Source/Event/EventMgr.h \
     Source/EntityFactory.h \
     Source/Entity.h \
     Source/System/SystemMgr.h \
@@ -42,7 +41,6 @@ HEADERS += \
     Source/System/SystemBase.h \
     Source/System/SystemIF.h \
     Source/Macros.h \
-    Source/Component/ComDmgOverTime.h \
     Source/Tests/tests.h \
     Source/System/SysInventory.h \
     Source/Component/ComInventory.h \
@@ -50,7 +48,11 @@ HEADERS += \
     Source/Tests/test_health.h \
     Source/Tests/test_dbgEntity.h \
     Source/Tests/test_global.h \
-    Source/Component/ComHealingOverTime.h
+    Source/Component/ComHealthModifierOverTime.h \
+    Source/System/SysUsable.h \
+    Source/Component/ComUsable.h \
+    Source/Helper.h \
+    Source/Tests/test_usable.h
 
 RESOURCES +=
 
