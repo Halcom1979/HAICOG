@@ -2,6 +2,7 @@
 #define SYSINVENTORY_H
 
 #include "Debug.h"
+#include "Macros.h"
 
 #include "SystemBase.h"
 
@@ -10,6 +11,8 @@
 
 #include <map>
 #include <list>
+
+class SystemMgr;
 
 struct InventoryEntry {
   uint64_t amount;
@@ -43,7 +46,7 @@ static std::string toString(const InventoryEntries & e) {
 class SysInventory : public SystemIF
 {
   public:
-    SysInventory();
+    SysInventory(SystemMgr * systemMgr);
 
     void clear();
 
@@ -57,6 +60,8 @@ class SysInventory : public SystemIF
 
     void addComponent(EntityId id, const ComInventory & c);
 
+    bool hasComponentInventory(EntityId id) const;
+
     void addToInventory(EntityId invId, EntityId e);
 
     void removeFromInventory(EntityId invId, EntityId e);
@@ -64,8 +69,15 @@ class SysInventory : public SystemIF
     InventoryEntries inventoryEntries(EntityId invId);
 
   private:
+    DISABLE_COPY(SysInventory)
+    DISABLE_DFLT_CTOR(SysInventory)
+
+    SystemMgr * mSystemMgr;
+
     typedef std::map<EntityId, InventoryEntries> InventoryList;
     InventoryList mInventories;
+
+    bool areStackable(EntityId a, EntityId b) const;
 };
 
 #endif // SYSINVENTORY_H

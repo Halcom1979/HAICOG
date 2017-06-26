@@ -20,6 +20,11 @@ struct ComUsable
   : blueprint(b)
   , usages(a)
   {}
+
+  bool operator == (const ComUsable & r) const
+  {
+    return blueprint == r.blueprint;
+  }
 };
 
 static std::string toString(const ComUsable & com) {

@@ -4,6 +4,7 @@
 #include "SysHealth.h"
 
 SystemMgr::SystemMgr()
+: mInventory(this)
 {
 
 }
@@ -46,6 +47,13 @@ void SystemMgr::executeTurn(uint32_t deltaTime)
     for(auto e : mSystems) {
       e->executeTurn();
     }
+  }
+}
+
+void SystemMgr::removeEntity(EntityId id)
+{
+  for(auto e : mSystems) {
+    e->removeEntity(id);
   }
 }
 

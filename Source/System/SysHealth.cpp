@@ -89,6 +89,28 @@ void SysHealth::addComponent(EntityId id, const ComHealthModifierOverTime & c)
   }
 }
 
+bool SysHealth::hasComponentHealth(EntityId id) const
+{
+  for(auto e : mComHealthList) {
+    if(e.first == id) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool SysHealth::hasComponentHealthModifierOverTime(EntityId id) const
+{
+  for(auto e : mComHealthModOverTimeList) {
+    if(e.first == id) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 void SysHealth::removeEntity(EntityId id)
 {
   removeFromEntityList(id, mComHealthList);
@@ -108,7 +130,7 @@ std::string SysHealth::dbgList() const
   return r.str();
 }
 
-void SysHealth::health(EntityId id, uint32_t & current, uint32_t & total)
+void SysHealth::health(EntityId id, uint32_t & current, uint32_t & total) const
 {
   current = 0;
   total = 0;

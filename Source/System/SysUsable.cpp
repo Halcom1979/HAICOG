@@ -48,6 +48,21 @@ void SysUsable::removeEntity(EntityId id)
   removeFromEntityMap(id, mComUsableList);
 }
 
+bool SysUsable::equal(EntityId a, EntityId b) const
+{
+  ComUsableList::const_iterator iter_a = mComUsableList.find(a);
+  ComUsableList::const_iterator iter_b = mComUsableList.find(b);
+
+  const bool found_a = iter_a != mComUsableList.end();
+  const bool found_b = iter_b != mComUsableList.end();
+
+  if(!found_a && !found_b) {
+    return true;
+  }
+
+  return iter_a->second == iter_b->second;
+}
+
 void SysUsable::useOnEntity(EntityId id, EntityId useOnId)
 {
   dbg_assert(mEntityFactory != nullptr);

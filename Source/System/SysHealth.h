@@ -26,9 +26,12 @@ class SysHealth : public SystemBase
     void addComponent(EntityId id, const ComHealth & c);
     void addComponent(EntityId id, const ComHealthModifierOverTime & c);
 
+    bool hasComponentHealth(EntityId id) const;
+    bool hasComponentHealthModifierOverTime(EntityId id) const;
+
     void removeEntity(EntityId id);
 
-    void health(EntityId id, uint32_t & current, uint32_t & total);
+    void health(EntityId id, uint32_t & current, uint32_t & total) const;
 
   private:
     typedef std::map<EntityId, ComHealth> ComHealthList;

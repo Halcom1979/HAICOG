@@ -22,6 +22,8 @@ class SystemMgr
 
     void executeTurn(uint32_t deltaTime);
 
+    void removeEntity(EntityId id);
+
     SysHealth &           health();
     SysInventory &        inventory();
     SysUsable &           usable();

@@ -24,10 +24,10 @@
 
 void doTests(SystemMgr & sysMgr, EntityFactory & factory)
 {
-  //DO_TEST(test_health);
-  //DO_TEST(test_inventory);
   //DO_TEST(test_dbgEntity);
-  DO_TEST(test_usable);
+  //DO_TEST(test_health);
+  DO_TEST(test_inventory);
+  //DO_TEST(test_usable);
 
   print("Test finished!!!");
 }

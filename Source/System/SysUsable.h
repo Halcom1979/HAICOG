@@ -28,6 +28,8 @@ class SysUsable : public SystemBase
 
     void removeEntity(EntityId id);
 
+    bool equal(EntityId a, EntityId b) const;
+
     void useOnEntity(EntityId id, EntityId useOnId);
 
     uint16_t usages(EntityId id) const;
