@@ -55,7 +55,6 @@ HEADERS += \
     Source/Component/ComHealthModifierOverTime.h \
     Source/System/SysUsable.h \
     Source/Component/ComUsable.h \
-    Source/Helper.h \
     Source/System/GenericSumUp.h \
     Source/System/GenericAmount.h \
     Source/Tests/Unit/_unit_testing.h \
