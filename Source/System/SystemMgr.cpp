@@ -5,6 +5,9 @@
 
 SystemMgr::SystemMgr()
 : mInventory(this)
+, mHealth()
+, mHealthMod(&mHealth)
+, mUsable()
 {
 
 }
@@ -20,6 +23,7 @@ void SystemMgr::init(EntityFactory * factory)
 
 void SystemMgr::dbgEntity(EntityId id) const
 {
+  /*
   std::stringstream r;
 
   r << "Entity (" << std::to_string(id) << ") {" << std::endl;
@@ -32,6 +36,7 @@ void SystemMgr::dbgEntity(EntityId id) const
   r << "}" << std::endl;
 
   print(r.str());
+  */
 }
 
 void SystemMgr::clearSystems()
@@ -50,16 +55,21 @@ void SystemMgr::executeTurn(uint32_t deltaTime)
   }
 }
 
-void SystemMgr::removeEntity(EntityId id)
+void SystemMgr::kill(EntityId id)
 {
   for(auto e : mSystems) {
-    e->removeEntity(id);
+    e->kill(id);
   }
 }
 
 SysHealth & SystemMgr::health()
 {
   return mHealth;
+}
+
+SysHealthModOverTime &SystemMgr::healthModifierOverTime()
+{
+  return mHealthMod;
 }
 
 SysInventory & SystemMgr::inventory()
@@ -71,3 +81,4 @@ SysUsable & SystemMgr::usable()
 {
   return mUsable;
 }
+

@@ -1,23 +1,25 @@
 #ifndef SYSTEMIF_H
 #define SYSTEMIF_H
 
-#include <cstdint>
-#include <list>
-
-#include "../Entity.h"
+#include "Debug.h"
+#include "Entity.h"
 
 class SystemIF
 {
   public:
+    SystemIF(){}
+    ~SystemIF(){}
+
+    virtual EntityList entities() const = 0;
+
     virtual void clear() = 0;
 
-    virtual std::string dbgEntity(EntityId id) const = 0;
+    virtual void kill(EntityId id) = 0;
 
-    virtual std::string dbgList() const = 0;
-
-    virtual void executeTurn() = 0;
-
-    virtual void removeEntity(EntityId id) = 0;
+    virtual void executeTurn() {
+      // not implemented
+      dbg_assert(false);
+    }
 };
 
 typedef std::list<SystemIF*> SystemIFList;

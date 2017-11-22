@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Blueprints>
   <TestPoisonEffect>
-    <ComHealthModifierOverTime amount="2" time="4"/>
+    <ComHealthModOverTime health="-2" rounds="4"/>
   </TestPoisonEffect>
   <TestPoison>
     <ComUsable usages="2" blueprint="TestPoisonEffect"/>

@@ -1,35 +1,21 @@
 #ifndef TESTS_H
 #define TESTS_H
 
+#ifdef TEST_BUILD
+
 #include "Debug.h"
 
-#include "System/SystemMgr.h"
-#include "EntityFactory.h"
+#include "Integration/_integration_testing.h"
+#include "Unit/_unit_testing.h"
 
-#include "test_health.h"
-#include "test_inventory.h"
-#include "test_dbgEntity.h"
-#include "test_usable.h"
-
-#define DO_TEST(method) \
-{\
-  sysMgr.clearSystems();\
-  print(#method);\
-  const bool result = method(sysMgr, factory);\
-  if(!result) {\
-    print("FAILED!!!");\
-    exit(-1);\
-  }\
-}
-
-void doTests(SystemMgr & sysMgr, EntityFactory & factory)
+void doTests()
 {
-  //DO_TEST(test_dbgEntity);
-  //DO_TEST(test_health);
-  DO_TEST(test_inventory);
-  //DO_TEST(test_usable);
+  doUnitTests();
+  doIntegrationTest();
 
-  print("Test finished!!!");
+  printTestResults();
 }
+
+#endif
 
 #endif // TESTS_H

@@ -3,8 +3,10 @@
 
 #include <stdint.h>
 #include <sstream>
+#include <list>
 
 typedef uint64_t EntityId;
+typedef std::list<EntityId> EntityList;
 
 static std::string toString(EntityId id) {
   std::stringstream res;

@@ -1,7 +1,7 @@
 #ifndef SYSUSABLE_H
 #define SYSUSABLE_H
 
-#include "SystemBase.h"
+#include "GenericSingleComponent.h"
 
 #include <map>
 
@@ -9,24 +9,12 @@
 
 class EntityFactory;
 
-class SysUsable : public SystemBase
+class SysUsable : public GenericSingleComponent<ComUsable>
 {
   public:
     SysUsable();
 
     void init(EntityFactory * factory);
-
-    void clear();
-
-    std::string dbgEntity(EntityId id) const;
-
-    std::string dbgList() const;
-
-    void executeTurn();
-
-    void addComponent(EntityId id, const ComUsable & c);
-
-    void removeEntity(EntityId id);
 
     bool equal(EntityId a, EntityId b) const;
 
@@ -36,9 +24,6 @@ class SysUsable : public SystemBase
 
   private:
     EntityFactory * mEntityFactory;
-
-    typedef std::map<EntityId, ComUsable> ComUsableList;
-    ComUsableList mComUsableList;
 };
 
 #endif // SYSUSABLE_H

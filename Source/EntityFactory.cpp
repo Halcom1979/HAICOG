@@ -12,7 +12,7 @@
     comName c;
 
 #define END_COMP(comName, system) \
-    system.addComponent(id, c);\
+    system.add(id, c);\
     component = component.nextSiblingElement(#comName);\
   }\
 }
@@ -21,9 +21,21 @@
   dbg_assert(component.hasAttribute(#name));\
   c.name = component.attribute(#name, init).toStdString();
 
-#define ATTR_INT(name, init) \
+#define ATTR_INT32(name, init)\
   dbg_assert(component.hasAttribute(#name));\
   c.name = component.attribute(#name, init).toInt();
+
+#define ASSIGN_INT32(name, init)\
+  dbg_assert(component.hasAttribute(#name));\
+  c = component.attribute(#name, init).toInt();
+
+#define ATTR_UINT32(name, init)\
+  dbg_assert(component.hasAttribute(#name));\
+  c.name = component.attribute(#name, init).toUInt();
+
+#define ASSIGN_UINT32(name, init)\
+  dbg_assert(component.hasAttribute(#name));\
+  c = component.attribute(#name, init).toUInt();
 
 #define ATTR_F32(name, init) \
   dbg_assert(component.hasAttribute(#name));\
@@ -83,20 +95,19 @@ void EntityFactory::addBlueprintToId(EntityId id,
   }
 
   START_COMP(ComHealth)
-    ATTR_INT(current, 0)
-    ATTR_INT(total, 0)
+    ASSIGN_INT32(total, 0)
   END_COMP(ComHealth, mSystemMgr->health())
 
-  START_COMP(ComHealthModifierOverTime)
-    ATTR_INT(amount, 0)
-    ATTR_INT(time, 0)
-  END_COMP(ComHealthModifierOverTime, mSystemMgr->health())
+  START_COMP(ComHealthModOverTime)
+    ATTR_INT32(health, 0)
+    ATTR_INT32(rounds, 0)
+  END_COMP(ComHealthModOverTime, mSystemMgr->healthModifierOverTime())
 
   START_COMP(ComInventory)
   END_COMP(ComInventory, mSystemMgr->inventory())
 
   START_COMP(ComUsable)
-    ATTR_INT(usages, 0)
+    ATTR_INT32(usages, 0)
     ATTR_STR(blueprint, QString())
   END_COMP(ComUsable, mSystemMgr->usable())
 

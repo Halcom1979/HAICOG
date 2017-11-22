@@ -4,6 +4,7 @@
 #include <cstdint>
 
 #include "SysHealth.h"
+#include "SystemHealthModOverTime.h"
 #include "SysInventory.h"
 #include "SysUsable.h"
 
@@ -22,14 +23,16 @@ class SystemMgr
 
     void executeTurn(uint32_t deltaTime);
 
-    void removeEntity(EntityId id);
+    void kill(EntityId id);
 
-    SysHealth &           health();
-    SysInventory &        inventory();
-    SysUsable &           usable();
+    SysHealth &             health();
+    SysHealthModOverTime &  healthModifierOverTime();
+    SysInventory &          inventory();
+    SysUsable &             usable();
 
   private:
     SysHealth             mHealth;
+    SysHealthModOverTime  mHealthMod;
     SysInventory          mInventory;
     SysUsable             mUsable;
 

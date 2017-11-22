@@ -15,10 +15,10 @@
 class SystemMgr;
 
 struct InventoryEntry {
-  uint64_t amount;
+  uint32_t amount;
   EntityId id;
 
-  InventoryEntry(EntityId i, uint64_t a)
+  InventoryEntry(EntityId i, uint32_t a)
   : id(i)
   , amount(a)
   {}
@@ -50,15 +50,17 @@ class SysInventory : public SystemIF
 
     void clear();
 
+    EntityList entities() const;
+
+    void kill(EntityId id);
+
     std::string dbgEntity(EntityId id) const;
 
     std::string dbgList() const;
 
     void executeTurn();
 
-    void removeEntity(EntityId id);
-
-    void addComponent(EntityId id, const ComInventory & c);
+    void add(EntityId id, const ComInventory & c);
 
     bool hasComponentInventory(EntityId id) const;
 

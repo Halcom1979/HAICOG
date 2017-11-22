@@ -15,6 +15,15 @@ void SysInventory::clear()
   mInventories.clear();
 }
 
+EntityList SysInventory::entities() const
+{
+  EntityList res;
+  for (const auto & kv : mInventories) {
+    res.push_back(kv.first);
+  }
+  return res;
+}
+
 std::string SysInventory::dbgEntity(EntityId id) const
 {
   return fromEntityMapToString(id, mInventories);
@@ -32,12 +41,12 @@ void SysInventory::executeTurn()
 
 }
 
-void SysInventory::removeEntity(EntityId id)
+void SysInventory::kill(EntityId id)
 {
   mInventories.erase(id);
 }
 
-void SysInventory::addComponent(EntityId id, const ComInventory & c)
+void SysInventory::add(EntityId id, const ComInventory & c)
 {
   UNUSED(c);
   mInventories[id] = InventoryEntries();
@@ -65,7 +74,7 @@ void SysInventory::addToInventory(EntityId invId, EntityId e)
       if(stackable) {
         (*entIter).amount++;
 
-        mSystemMgr->removeEntity(e);
+        mSystemMgr->kill(e);
         return;
       }
     }
@@ -92,18 +101,16 @@ bool SysInventory::areStackable(EntityId a, EntityId b) const
   }
 
   // we cant stack anything that has a health component
-  if(mSystemMgr->health().hasComponentHealth(a) ||
-     mSystemMgr->health().hasComponentHealth(b) ||
-     mSystemMgr->health().hasComponentHealthModifierOverTime(a) ||
-     mSystemMgr->health().hasComponentHealthModifierOverTime(b) )
+  if(mSystemMgr->health().hasEntity(a) ||
+     mSystemMgr->health().hasEntity(b) )
   {
     return false;
   }
 
   // must have same usable effect
-  if(!mSystemMgr->usable().equal(a, b)) {
-    return false;
-  }
+  //if(!mSystemMgr->usable().equal(a, b)) {
+  //  return false;
+  //}
 
   return true;
 }

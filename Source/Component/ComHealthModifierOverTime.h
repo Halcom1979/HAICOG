@@ -5,35 +5,23 @@
 #include <string>
 #include <sstream>
 
-struct ComHealthModifierOverTime
+struct ComHealthModOverTime
 {
-  int16_t   amount;
-  uint16_t  time;
+  int16_t   health;
+  uint16_t  rounds;
 
-  ComHealthModifierOverTime()
-  : ComHealthModifierOverTime(0,0)
+  ComHealthModOverTime()
+  : ComHealthModOverTime(0,0)
   {}
 
-  ComHealthModifierOverTime(int16_t v)
-  : ComHealthModifierOverTime(v,0)
+  explicit ComHealthModOverTime(int16_t v)
+  : ComHealthModOverTime(v,0)
   {}
 
-  ComHealthModifierOverTime(uint16_t v, uint16_t t)
-  : amount(v)
-  , time(t)
+  explicit ComHealthModOverTime(int16_t v, uint16_t t)
+  : health(v)
+  , rounds(t)
   {}
 };
-
-static std::string toString(const ComHealthModifierOverTime & com) {
-  std::ostringstream res;
-
-  res << "ComHealthModifierOverTime: {";
-  res << "modifier: " << std::to_string(com.amount);
-  res << ", ";
-  res << "time: " << std::to_string(com.time);
-  res << "}";
-
-  return res.str();
-}
 
 #endif // COMHEALTHMODIFIEROVERTIME_H

@@ -6,7 +6,7 @@
 #include "EntityFactory.h"
 
 SysUsable::SysUsable()
-: SystemBase("SysUsable")
+: GenericSingleComponent("SysUsable")
 , mEntityFactory(nullptr)
 {
 
@@ -18,73 +18,40 @@ void SysUsable::init(EntityFactory * factory)
   mEntityFactory = factory;
 }
 
-void SysUsable::clear()
-{
-  mComUsableList.clear();
-}
-
-std::string SysUsable::dbgEntity(EntityId id) const
-{
-  return fromEntityListToString(id, mComUsableList);
-}
-
-std::string SysUsable::dbgList() const
-{
-  return entityListToString("SysUsable", mComUsableList);
-}
-
-void SysUsable::executeTurn()
-{
-
-}
-
-void SysUsable::addComponent(EntityId id, const ComUsable & c)
-{
-  mComUsableList[id] = c;
-}
-
-void SysUsable::removeEntity(EntityId id)
-{
-  removeFromEntityMap(id, mComUsableList);
-}
-
 bool SysUsable::equal(EntityId a, EntityId b) const
 {
-  ComUsableList::const_iterator iter_a = mComUsableList.find(a);
-  ComUsableList::const_iterator iter_b = mComUsableList.find(b);
-
-  const bool found_a = iter_a != mComUsableList.end();
-  const bool found_b = iter_b != mComUsableList.end();
-
-  if(!found_a && !found_b) {
-    return true;
+  const bool found_a = hasEntity(a);
+  if(!found_a) {
+    return false;
   }
 
-  return iter_a->second == iter_b->second;
+  const bool found_b = hasEntity(b);
+  if(!found_b) {
+    return false;
+  }
+
+  const ComUsable & comp_a = component(a);
+  const ComUsable & comp_b = component(b);
+  return comp_a == comp_b;
 }
 
 void SysUsable::useOnEntity(EntityId id, EntityId useOnId)
 {
   dbg_assert(mEntityFactory != nullptr);
 
-  ComUsableList::iterator iter = mComUsableList.find(id);
-  dbg_assert(iter != mComUsableList.end());
+  ComUsable & comp = component(id);
 
-  mEntityFactory->addBlueprintToId(useOnId, iter->second.blueprint);
+  mEntityFactory->addBlueprintToId(useOnId, comp.blueprint);
 
-  if(iter->second.usages <= 1) {
-    removeEntity(id);
+  if(comp.usages <= 1) {
+    kill(id);
   } else {
-    iter->second.usages -= 1;
+    comp.usages -= 1;
   }
 }
 
 uint16_t SysUsable::usages(EntityId id) const
 {
-  ComUsableList::const_iterator iter = mComUsableList.find(id);
-  if(iter != mComUsableList.end()) {
-    return iter->second.usages;
-  }
-
-  return 0;
+  dbg_assert(hasEntity(id));
+  return component(id).usages;
 }

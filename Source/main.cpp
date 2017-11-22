@@ -10,13 +10,9 @@ int main(int argc, char *argv[])
   UNUSED(argc)
   UNUSED(argv)
 
-  SystemMgr sysMgr;
-  EntityFactory entityFactory;
-
-  sysMgr.init(&entityFactory);
-  entityFactory.init(&sysMgr);
-
-  doTests(sysMgr, entityFactory);
+  #ifdef TEST_BUILD
+    doTests();
+  #endif
 
   return 0;
 }

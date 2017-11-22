@@ -1,20 +1,25 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-#ifdef _DEBUG
-  #include <assert.h>
-#endif
-
 #include <iostream>
 
 #include "Macros.h"
 #include "Entity.h"
 
-static void dbg_assert(bool x) {
-  #ifdef _DEBUG
-    assert(x);
+#ifdef _DEBUG
+  #ifdef TEST_BUILD
+    #include <stdexcept>
+    #define dbg_assert(x)\
+    if(!(x)) {\
+      throw std::runtime_error(__FILE__ ":" LINE_STRING);\
+    }
+  #else
+    #include <assert.h>
+    #define dbg_assert(x) assert(x)
   #endif
-}
+#else
+  #define dbg_assert(x)
+#endif
 
 static void print(const char * msg) {
   std::cout << msg << std::endl;

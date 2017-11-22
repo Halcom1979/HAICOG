@@ -11,6 +11,9 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
+DEFINES += _DEBUG
+DEFINES += TEST_BUILD
+
 SOURCES += \
     Source/EntityFactory.cpp \
     Source/main.cpp \
@@ -18,7 +21,9 @@ SOURCES += \
     Source/System/SysHealth.cpp \
     Source/System/SystemBase.cpp \
     Source/System/SysInventory.cpp \
-    Source/System/SysUsable.cpp
+    Source/System/SysUsable.cpp \
+    Source/System/SystemHealthModOverTime.cpp \
+    Source/System/SystemHealthModOverTime.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -28,8 +33,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
-# You can also select to disable deprecated APIs only up to a certain version of Qt.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+# You can also select to disable deprecated APIs only up to a certain version
+# of Qt.
+# disables all the APIs deprecated before Qt 6.0.0
+#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000
 
 HEADERS += \
     Source/Debug.h \
@@ -44,15 +51,23 @@ HEADERS += \
     Source/Tests/tests.h \
     Source/System/SysInventory.h \
     Source/Component/ComInventory.h \
-    Source/Tests/test_inventory.h \
-    Source/Tests/test_health.h \
-    Source/Tests/test_dbgEntity.h \
     Source/Tests/test_global.h \
     Source/Component/ComHealthModifierOverTime.h \
     Source/System/SysUsable.h \
     Source/Component/ComUsable.h \
     Source/Helper.h \
-    Source/Tests/test_usable.h
+    Source/System/GenericSumUp.h \
+    Source/System/GenericAmount.h \
+    Source/Tests/Unit/_unit_testing.h \
+    Source/Tests/Integration/_integration_testing.h \
+    Source/Test.h \
+    Source/System/GenericCollection.h \
+    Source/System/SystemHealthModOverTime.h \
+    Source/Tests/Integration/TestInt_SystemHealthModOverTime.h \
+    Source/Tests/Integration/TestInt_SysInventory.h \
+    Source/Tests/Integration/TestInt_Usable.h \
+    Source/System/GenericSingleComponent.h \
+    Source/Tests/Integration/TestInt_EntityFactory.h
 
 RESOURCES +=
 
