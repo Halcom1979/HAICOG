@@ -22,8 +22,8 @@ SOURCES += \
     Source/System/SystemBase.cpp \
     Source/System/SysInventory.cpp \
     Source/System/SysUsable.cpp \
-    Source/System/SystemHealthModOverTime.cpp \
-    Source/System/SystemHealthModOverTime.cpp
+    Source/System/SysHealthModOverTime.cpp \
+    Source/EventProvider.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -61,12 +61,15 @@ HEADERS += \
     Source/Tests/Integration/_integration_testing.h \
     Source/Test.h \
     Source/System/GenericCollection.h \
-    Source/System/SystemHealthModOverTime.h \
     Source/Tests/Integration/TestInt_SystemHealthModOverTime.h \
     Source/Tests/Integration/TestInt_SysInventory.h \
     Source/Tests/Integration/TestInt_Usable.h \
     Source/System/GenericSingleComponent.h \
-    Source/Tests/Integration/TestInt_EntityFactory.h
+    Source/Tests/Integration/TestInt_EntityFactory.h \
+    Source/System/SysHealthModOverTime.h \
+    Source/EventProvider.h \
+    Source/EventObserver.h \
+    Source/Tests/TestEventObserver.h
 
 RESOURCES +=
 
