@@ -1,6 +1,8 @@
 #ifndef MACROS_H
 #define MACROS_H
 
+#include <algorithm>
+
 #define DISABLE_COPY(Class) \
   Class(const Class &) = delete;\
   Class & operator=(const Class &) = delete;
@@ -10,6 +12,9 @@
 
 #define UNUSED(x) \
   (void)x;
+
+#define BOUND(low, val, high)\
+  (std::max(low, std::min(val, high)))
 
 #define STRINGIZE(x) STRINGIZE2(x)
 #define STRINGIZE2(x) #x
