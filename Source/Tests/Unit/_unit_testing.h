@@ -5,7 +5,8 @@
 #include "./System/GenericAmount.h"
 #include "./System/GenericCollection.h"
 #include "./System/GenericSingleComponent.h"
-#include "./System/SystemHealthModOverTime.h"
+#include "./System/SysHealthModOverTime.h"
+#include "./System/SysHealth.h"
 
 void doUnitTests() {
   unitTestGenericSumUp();
@@ -13,6 +14,7 @@ void doUnitTests() {
   unitTestGenericCollection();
   unitTestGenericSingleComponent();
   unitTestSysHealthModOverTime();
+  unitTestSysHealth();
 }
 
 #endif // _UNIT_TESTING_H

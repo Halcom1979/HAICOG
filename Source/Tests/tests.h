@@ -11,6 +11,7 @@
 void doTests()
 {
   doUnitTests();
+  print("");
   doIntegrationTest();
 
   printTestResults();

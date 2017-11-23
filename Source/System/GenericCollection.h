@@ -36,7 +36,7 @@ class GenericCollection : public SystemBase
       return res;
     }
 
-    void remove(EntityId id, const T & c) {
+    bool remove(EntityId id, const T & c) {
       EntityMap::iterator iter = mComponents.find(id);
       dbg_assert(iter != mComponents.end());
 
@@ -49,13 +49,14 @@ class GenericCollection : public SystemBase
             mComponents.erase(iter);
           }
 
-          return;
+          return mComponents.empty();
         }
 
         ++listIter;
       }
 
       dbg_assert(false);
+      return true;
     }
 
     void kill(EntityId id) {

@@ -4,7 +4,7 @@
 #ifdef TEST_BUILD
 
 #include "System/SysHealth.h"
-#include "System/SystemHealthModOverTime.h"
+#include "System/SysHealthModOverTime.h"
 
 void testInt_SystHealthModOverTime() {
   SysHealth sh;
@@ -12,28 +12,25 @@ void testInt_SystHealthModOverTime() {
 
   sh.add(1, 10);
   sh.add(2, 20);
-  shm.add(1, ComHealthModOverTime(1, 1));
-  shm.executeTurn();
-
-  dbg_assert(sh.current(1) == 11);
-  dbg_assert(sh.current(2) == 20);
-  shm.executeTurn();
-  dbg_assert(sh.current(1) == 11);
-  dbg_assert(sh.current(2) == 20);
 
   shm.add(2, ComHealthModOverTime(-1, 2));
   shm.executeTurn();
   shm.executeTurn();
-  dbg_assert(sh.current(1) == 11);
+  dbg_assert(sh.current(1) == 10);
   dbg_assert(sh.current(2) == 18);
+
+  shm.add(2, ComHealthModOverTime(1, 1));
+  shm.executeTurn();
+  dbg_assert(sh.current(1) == 10);
+  dbg_assert(sh.current(2) == 19);
 
   shm.executeTurn();
-  dbg_assert(sh.current(1) == 11);
-  dbg_assert(sh.current(2) == 18);
+  dbg_assert(sh.current(1) == 10);
+  dbg_assert(sh.current(2) == 19);
 
   shm.add(1, ComHealthModOverTime(-6, 0));
-  dbg_assert(sh.current(1) == 5);
-  dbg_assert(sh.current(2) == 18);
+  dbg_assert(sh.current(1) == 4);
+  dbg_assert(sh.current(2) == 19);
 }
 
 #endif // TEST_BUILD

@@ -2,7 +2,6 @@
 #define TEST_GLOBAL_H
 
 #include "Debug.h"
-
 #include "Macros.h"
 
 #include <cstdint>

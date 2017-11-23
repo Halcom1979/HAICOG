@@ -17,14 +17,15 @@ class GenericAmount: public GenericSumUp<T>
       mCurrent.clear();
     }
 
-    void add(EntityId id, const T & c) {
+    T add(EntityId id, const T & c) {
       GenericSumUp::add(id, c);
 
       std::map<EntityId, T>::iterator iter = mCurrent.find(id);
       if(iter == mCurrent.end()) {
         mCurrent[id] = c;
+        return c;
       } else {
-        modify(id, c);
+        return modify(id, c);
       }
     }
 
@@ -33,9 +34,12 @@ class GenericAmount: public GenericSumUp<T>
       return (iter != mCurrent.end());
     }
 
-    void remove(EntityId id, const T & c) {
-      GenericSumUp::remove(id, c);
-      modify(id, -c);
+    T remove(EntityId id, const T & c) {
+      const bool isLast = GenericSumUp::remove(id, c);
+      if(isLast)
+        return -1;
+      else
+        return modify(id, -c);
     }
 
     T current(EntityId id) const {
@@ -53,11 +57,13 @@ class GenericAmount: public GenericSumUp<T>
       }
     }
 
-    void modify(EntityId id, T v) {
+    T modify(EntityId id, T v) {
       std::map<EntityId, T>::iterator iter = mCurrent.find(id);
+      dbg_assert(v != 0);
       dbg_assert(iter != mCurrent.end());
-
-      iter->second += v;
+      const T added = iter->second + v;
+      iter->second = BOUND(T(0), added, total(id));
+      return iter->second;
     }
 
   private:
@@ -146,6 +152,24 @@ static void GenericAmount_clear() {
   dbg_assert(!gs->hasEntity(3));
 }
 
+static void GenericAmount_limit_low() {
+  GenericAmount<int32_t> ga("Test");
+  ga.add(1, 10);
+  dbg_assert(ga.modify(1, -100) == 0);
+}
+
+static void GenericAmount_limit_max() {
+  GenericAmount<int32_t> ga("Test");
+  ga.add(1, 10);
+  dbg_assert(ga.modify(1, 100) == 10);
+}
+
+static void GenericAmount_modify_zero() {
+  GenericAmount<int32_t> ga("Test");
+  ga.add(1, 10);
+  ga.modify(1, 0);
+}
+
 static void unitTestGenericAmmount() {
   DO_UNIT_TEST(GenericAmmount_add);
   DO_UNIT_TEST(GenericAmmount_remove);
@@ -154,6 +178,9 @@ static void unitTestGenericAmmount() {
   DO_UNIT_TEST_SHOULD_ASSERT(GenericAmmount_total_invalid_id);
   DO_UNIT_TEST(GenericAmount_kill);
   DO_UNIT_TEST(GenericAmount_kill_invalid);
+  DO_UNIT_TEST(GenericAmount_limit_low);
+  DO_UNIT_TEST(GenericAmount_limit_max);
+  DO_UNIT_TEST_SHOULD_ASSERT(GenericAmount_modify_zero);
 }
 #endif
 
