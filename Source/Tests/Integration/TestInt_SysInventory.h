@@ -18,6 +18,8 @@ void testInt_SysInventory() {
     const EntityId item = entityFactory.createEmptyEntity();
     sysMgr.inventory().addToInventory(inv, item);
   }
+
+  dbg_assert(sysMgr.inventory().entries(inv).size() == 1);
 }
 
 #endif // TEST_BUILD
