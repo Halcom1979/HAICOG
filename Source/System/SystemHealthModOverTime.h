@@ -1,13 +1,13 @@
-#ifndef SystemHealthModOverTime_H
-#define SystemHealthModOverTime_H
+#ifndef SYSTEMHEALTHMODOVERTIME_H
+#define SYSTEMHEALTHMODOVERTIME_H
 
-#include "SysHealth.h"
 #include "System/GenericCollection.h"
 
 #include "Component/ComHealthModifierOverTime.h"
 
-class SysHealthModOverTime :
-    public GenericCollection<ComHealthModOverTime>
+class SysHealth;
+
+class SysHealthModOverTime : public GenericCollection<ComHealthModOverTime>
 {
   public:
     SysHealthModOverTime(SysHealth * sysHealth);
@@ -16,10 +16,28 @@ class SysHealthModOverTime :
 
     void executeTurn();
 
+    void add(EntityId id, const ComHealthModOverTime &c);
+
   private:
+    DISABLE_COPY(SysHealthModOverTime)
     DISABLE_DFLT_CTOR(SysHealthModOverTime)
 
     SysHealth * mSystemHealth;
 };
 
-#endif // SystemHealthModOverTime_H
+#ifdef TEST_BUILD
+
+#include "./Tests/test_global.h"
+
+static void SysHealthModOverTime_add_with_zero_health() {
+  SysHealthModOverTime s((SysHealth*)0xDEADC0DE);
+  s.add(1, ComHealthModOverTime(0,1));
+}
+
+static void unitTestSysHealthModOverTime() {
+  DO_UNIT_TEST_SHOULD_ASSERT(SysHealthModOverTime_add_with_zero_health);
+}
+
+#endif // TEST_BUILD
+
+#endif // SYSTEMHEALTHMODOVERTIME_H

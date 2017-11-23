@@ -14,13 +14,13 @@ struct ComHealthModOverTime
   : ComHealthModOverTime(0,0)
   {}
 
-  explicit ComHealthModOverTime(int16_t v)
-  : ComHealthModOverTime(v,0)
+  explicit ComHealthModOverTime(int16_t h)
+  : ComHealthModOverTime(h,0)
   {}
 
-  explicit ComHealthModOverTime(int16_t v, uint16_t t)
-  : health(v)
-  , rounds(t)
+  explicit ComHealthModOverTime(int16_t h, uint16_t r)
+  : health(h)
+  , rounds(r)
   {}
 };
 

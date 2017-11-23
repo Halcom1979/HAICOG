@@ -24,18 +24,6 @@ EntityList SysInventory::entities() const
   return res;
 }
 
-std::string SysInventory::dbgEntity(EntityId id) const
-{
-  return fromEntityMapToString(id, mInventories);
-}
-
-std::string SysInventory::dbgList() const
-{
-  std::stringstream r;
-  r << entityMapToString<InventoryList>("Inventories", mInventories);
-  return r.str();
-}
-
 void SysInventory::executeTurn()
 {
 
@@ -49,10 +37,11 @@ void SysInventory::kill(EntityId id)
 void SysInventory::add(EntityId id, const ComInventory & c)
 {
   UNUSED(c);
+  dbg_assert(!hasEntity(id));
   mInventories[id] = InventoryEntries();
 }
 
-bool SysInventory::hasComponentInventory(EntityId id) const
+bool SysInventory::hasEntity(EntityId id) const
 {
   InventoryList::const_iterator iter = mInventories.find(id);
   return iter != mInventories.end();
@@ -83,9 +72,9 @@ void SysInventory::addToInventory(EntityId invId, EntityId e)
   iter->second.push_back(InventoryEntry(e, 1));
 }
 
-InventoryEntries SysInventory::inventoryEntries(EntityId invId)
+const InventoryEntries & SysInventory::entries(EntityId invId) const
 {
-  InventoryList::iterator iter = mInventories.find(invId);
+  InventoryList::const_iterator iter = mInventories.find(invId);
   dbg_assert(iter != mInventories.end());
 
   return iter->second;
@@ -94,8 +83,8 @@ InventoryEntries SysInventory::inventoryEntries(EntityId invId)
 bool SysInventory::areStackable(EntityId a, EntityId b) const
 {
   // we cant stack anything that has a inventory
-  if(hasComponentInventory(a) ||
-     hasComponentInventory(b) )
+  if(hasEntity(a) ||
+     hasEntity(b) )
   {
     return false;
   }

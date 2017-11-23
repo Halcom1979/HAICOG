@@ -54,21 +54,17 @@ class SysInventory : public SystemIF
 
     void kill(EntityId id);
 
-    std::string dbgEntity(EntityId id) const;
-
-    std::string dbgList() const;
-
     void executeTurn();
 
     void add(EntityId id, const ComInventory & c);
 
-    bool hasComponentInventory(EntityId id) const;
+    bool hasEntity(EntityId id) const;
 
     void addToInventory(EntityId invId, EntityId e);
 
     void removeFromInventory(EntityId invId, EntityId e);
 
-    InventoryEntries inventoryEntries(EntityId invId);
+    const InventoryEntries & entries(EntityId invId) const;
 
   private:
     DISABLE_COPY(SysInventory)

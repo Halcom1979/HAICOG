@@ -1,5 +1,5 @@
-#ifndef GenericSingleComponent_H
-#define GenericSingleComponent_H
+#ifndef GENERICSINGLECOMPONENT_H
+#define GENERICSINGLECOMPONENT_H
 
 #include "SystemBase.h"
 
@@ -128,6 +128,6 @@ static void unitTestGenericSingleComponent() {
   DO_UNIT_TEST(GenericSingleComponent_clear);
   DO_UNIT_TEST(GenericSingleComponent_entities);
 }
-#endif
+#endif // TEST_BUILD
 
-#endif // GenericSingleComponent_H
+#endif // GENERICSINGLECOMPONENT_H

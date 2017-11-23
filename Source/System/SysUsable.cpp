@@ -1,7 +1,6 @@
 #include "SysUsable.h"
 
 #include "../Debug.h"
-#include "Helper.h"
 
 #include "EntityFactory.h"
 

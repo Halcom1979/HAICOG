@@ -1,7 +1,8 @@
-#ifndef SYSTEMHEALTHMODOVERTIME_H
-#define SYSTEMHEALTHMODOVERTIME_H
+#ifndef TESTINT_SYSTEMHEALTHMODOVERTIME_H
+#define TESTINT_SYSTEMHEALTHMODOVERTIME_H
 
 #ifdef TEST_BUILD
+
 #include "System/SysHealth.h"
 #include "System/SystemHealthModOverTime.h"
 
@@ -29,8 +30,12 @@ void testInt_SystHealthModOverTime() {
   shm.executeTurn();
   dbg_assert(sh.current(1) == 11);
   dbg_assert(sh.current(2) == 18);
+
+  shm.add(1, ComHealthModOverTime(-6, 0));
+  dbg_assert(sh.current(1) == 5);
+  dbg_assert(sh.current(2) == 18);
 }
 
 #endif // TEST_BUILD
 
-#endif // SYSTEMHEALTHMODOVERTIME_H
+#endif // TESTINT_SYSTEMHEALTHMODOVERTIME_H

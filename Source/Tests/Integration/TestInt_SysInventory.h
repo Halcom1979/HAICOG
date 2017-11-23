@@ -12,6 +12,7 @@ void testInt_SysInventory() {
 
   ComInventory comInv;
   sysMgr.inventory().add(inv, comInv);
+  dbg_assert(sysMgr.inventory().entries(inv).empty());
 
   for(int i = 0; i < 7; ++i) {
     const EntityId item = entityFactory.createEmptyEntity();

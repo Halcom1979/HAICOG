@@ -1,5 +1,7 @@
 #include "SystemHealthModOverTime.h"
 
+#include "SysHealth.h"
+
 SysHealthModOverTime::SysHealthModOverTime(SysHealth * sysHealth)
 : GenericCollection("SystemHealthModifierOverTime")
 , mSystemHealth(sysHealth)
@@ -27,5 +29,16 @@ void SysHealthModOverTime::executeTurn()
                       mSystemHealth->modify(id, c.health);
                       c.rounds -= 1;
                     },
-                   [](const ComHealthModOverTime & c){return (c.rounds == 0);});
+  [](const ComHealthModOverTime & c){return (c.rounds == 0);});
+}
+
+void SysHealthModOverTime::add(EntityId id, const ComHealthModOverTime & c)
+{
+  dbg_assert(c.health != 0);
+
+  if(c.rounds == 0) {
+    mSystemHealth->modify(id, c.health);
+  } else {
+    GenericCollection::add(id, c);
+  }
 }

@@ -5,11 +5,17 @@
 #include "Debug.h"
 #include "System/SystemMgr.h"
 
+
 #define START_COMP(comName) \
 {\
   QDomElement component = bp.firstChildElement(#comName);\
   while(!component.isNull()) {\
     comName c;
+
+#define END_WITHOUT_ADD_COMP(comName) \
+    component = component.nextSiblingElement(#comName);\
+  }\
+}
 
 #define END_COMP(comName, system) \
     system.add(id, c);\
@@ -95,8 +101,15 @@ void EntityFactory::addBlueprintToId(EntityId id,
   }
 
   START_COMP(ComHealth)
-    ASSIGN_INT32(total, 0)
-  END_COMP(ComHealth, mSystemMgr->health())
+    const int32_t total = component.attribute("total", 0).toInt();
+    const int32_t current = component.attribute("current", 0).toInt();
+    const int32_t diff = total - current;
+    mSystemMgr->health().add(id, total);
+    if(current != total) {
+      mSystemMgr->healthModifierOverTime().add(id,
+                                               ComHealthModOverTime(-diff, 0));
+    }
+  END_WITHOUT_ADD_COMP(ComHealth)
 
   START_COMP(ComHealthModOverTime)
     ATTR_INT32(health, 0)
