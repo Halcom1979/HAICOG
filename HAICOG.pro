@@ -69,7 +69,11 @@ HEADERS += \
     Source/System/SysHealthModOverTime.h \
     Source/EventProvider.h \
     Source/EventObserver.h \
-    Source/Tests/TestEventObserver.h
+    Source/Tests/TestEventObserver.h \
+    Source/Tests/Integration/TestInt_SysEquipmentSlotsBody.h \
+    Source/System/SysEquipmentSlotsBody.h \
+    Source/System/GenericEquipmentSlots.h \
+    Source/Helper.hpp
 
 RESOURCES +=
 

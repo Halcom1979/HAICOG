@@ -8,6 +8,7 @@ SystemMgr::SystemMgr()
 , mHealth()
 , mHealthMod(&mHealth)
 , mUsable()
+, mEquipmentSlotsBody()
 {
 
 }
@@ -19,6 +20,7 @@ void SystemMgr::init(EntityFactory * factory)
   mSystems.push_back(&mHealth);
   mSystems.push_back(&mInventory);
   mSystems.push_back(&mUsable);
+  mSystems.push_back(&mEquipmentSlotsBody);
 }
 
 void SystemMgr::dbgEntity(EntityId id) const
@@ -80,5 +82,10 @@ SysInventory & SystemMgr::inventory()
 SysUsable & SystemMgr::usable()
 {
   return mUsable;
+}
+
+SysEquipmentSlotsBody & SystemMgr::equipmentSlotsBody()
+{
+  return mEquipmentSlotsBody;
 }
 

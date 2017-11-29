@@ -9,8 +9,8 @@
 void testInt_SysUsable() {
   INIT_INTEGRATION_TEST
 
-  const EntityId player = entityFactory.create(std::string("TestPlayer"));
-  const EntityId poison = entityFactory.create(std::string("TestPoison"));
+  const EntityId player = entityFactory.create(std::string("testplayer"));
+  const EntityId poison = entityFactory.create(std::string("testpoison"));
 
   dbg_assert(2 == sysMgr.usable().usages(poison));
 

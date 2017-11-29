@@ -20,4 +20,11 @@
 #define STRINGIZE2(x) #x
 #define LINE_STRING STRINGIZE(__LINE__)
 
+#define BITMASK_SET(x,y)    ((x) |=   (y))
+#define BITMASK_UNSET(x,y)  ((x) &= (~(y)))
+#define BITMASK_MATCH(x,y)  ( ((x) & (y)) == (y) )
+#define BITMASK_HAS_MATCH_BIT(x,y)  ( ((x) & (y)) != 0 )
+
+#define RIGHTMOST_BIT(n) (n ^ (n & (n - 1)))
+
 #endif // MACROS_H

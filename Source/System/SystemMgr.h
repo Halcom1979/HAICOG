@@ -3,10 +3,11 @@
 
 #include <cstdint>
 
-#include "SysHealth.h"
-#include "SysHealthModOverTime.h"
-#include "SysInventory.h"
-#include "SysUsable.h"
+#include "System/SysHealth.h"
+#include "System/SysHealthModOverTime.h"
+#include "System/SysInventory.h"
+#include "System/SysUsable.h"
+#include "System/SysEquipmentSlotsBody.h"
 
 class EntityFactory;
 
@@ -29,12 +30,14 @@ class SystemMgr
     SysHealthModOverTime &  healthModifierOverTime();
     SysInventory &          inventory();
     SysUsable &             usable();
+    SysEquipmentSlotsBody & equipmentSlotsBody();
 
   private:
     SysHealth             mHealth;
     SysHealthModOverTime  mHealthMod;
     SysInventory          mInventory;
     SysUsable             mUsable;
+    SysEquipmentSlotsBody mEquipmentSlotsBody;
 
     std::list<SystemIF*>  mSystems;
 };

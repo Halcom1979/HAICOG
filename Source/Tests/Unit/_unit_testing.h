@@ -5,6 +5,7 @@
 #include "./System/GenericAmount.h"
 #include "./System/GenericCollection.h"
 #include "./System/GenericSingleComponent.h"
+#include "./System/GenericEquipmentSlots.h"
 #include "./System/SysHealthModOverTime.h"
 #include "./System/SysHealth.h"
 
@@ -13,6 +14,7 @@ void doUnitTests() {
   unitTestGenericAmmount();
   unitTestGenericCollection();
   unitTestGenericSingleComponent();
+  unitTestGenericEquipmentSlots();
   unitTestSysHealthModOverTime();
   unitTestSysHealth();
 }

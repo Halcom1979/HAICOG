@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Blueprints>
-  <TestPoisonEffect>
-    <ComHealthModOverTime health="-2" rounds="4"/>
-  </TestPoisonEffect>
-  <TestPoison>
-    <ComUsable usages="2" blueprint="TestPoisonEffect"/>
-  </TestPoison>
-  <TestPlayer>
-    <ComHealth current="20" total="30"/>
-  </TestPlayer>
-  <TestPlayerPoisoned>
-    <Blueprints name="TestPlayer"/>
-    <Blueprints name="TestPoisonEffect"/>
-  </TestPlayerPoisoned>
-</Blueprints>
+<blueprint>
+  <testpoisoneffect>
+    <healthmodovertime health="-2" rounds="4"/>
+  </testpoisoneffect>
+  <testpoison>
+    <usable usages="2" blueprint="testpoisoneffect"/>
+  </testpoison>
+  <person>
+    <equipmentslotsbody>
+      <slot name="bodyall"/>
+    </equipmentslotsbody>
+  </person>
+  <testplayer>
+    <health current="20" total="30"/>
+    <blueprint name="person"/>
+    <equipmentslotsbody>
+      <attached name="lefthand" blueprint="testweapon1h"/>
+    </equipmentslotsbody>
+  </testplayer>
+  <testplayerpoisoned>
+    <blueprint name="testplayer"/>
+    <blueprint name="testpoisoneffect"/>
+  </testplayerpoisoned>
+  <testweapon1h>
+    <attbody slot="lefthand"/>
+    <attbody slot="righthand"/>
+  </testweapon1h>
+  <testweapon2h>
+    <attbody slot="hands"/>
+  </testweapon2h>
+</blueprint>

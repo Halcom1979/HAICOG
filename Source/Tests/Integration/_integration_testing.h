@@ -8,6 +8,7 @@
 #include "Tests/Integration/TestInt_SysInventory.h"
 #include "Tests/Integration/TestInt_Usable.h"
 #include "Tests/Integration/TestInt_EntityFactory.h"
+#include "Tests/Integration/TestInt_SysEquipmentSlotsBody.h"
 
 void doIntegrationTest()
 {
@@ -15,6 +16,8 @@ void doIntegrationTest()
   DO_INTEGRATION_TEST(testInt_SysInventory);
   DO_INTEGRATION_TEST(testInt_SysUsable);
   DO_INTEGRATION_TEST(testInt_EntityFactory);
+  DO_INTEGRATION_TEST(testInt_SysEquipmentSlotsBody);
+
 }
 
 #endif // TEST_BUILD

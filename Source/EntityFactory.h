@@ -20,7 +20,7 @@ class EntityFactory
 
     EntityId create(const std::string & blueprint);
 
-    void addBlueprintToId(EntityId id, const std::string & blueprint) const;
+    void addBlueprintToId(EntityId id, const std::string & blueprint);
 
   private:
 
@@ -30,6 +30,12 @@ class EntityFactory
     QDomElement           mBlueprints;
 
     QDomElement findBlueprint(const std::string & name) const;
+
+    void addToSysHealth(EntityId id, const QDomElement & bp) const;
+    void addToSysHealthModOverTime(EntityId id, const QDomElement & bp) const;
+    void addToSysInventory(EntityId id, const QDomElement & bp) const;
+    void addToSysUsable(EntityId id, const QDomElement & bp) const;
+    void addToSysEquipmentSlotsBody(EntityId id, const QDomElement & bp);
 };
 
 #endif // ENTITYFACTORY_H
